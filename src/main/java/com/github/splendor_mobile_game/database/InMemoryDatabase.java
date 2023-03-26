@@ -61,4 +61,36 @@ public class InMemoryDatabase implements Database {
     public ArrayList<Room> getAllRooms() {
         return allRooms;
     }
+
+    private ArrayList<Card> allCards = new ArrayList<>();
+
+    public InMemoryDatabase() {
+        loadCardsFromCsv();
+    }
+
+    private void loadCardsFromCsv() {
+        String csvFile = "cards.csv";
+        String line = "";
+        String csvSplitBy = ",";
+        try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+            while ((line = br.readLine()) != null) {
+                String[] data = line.split(csvSplitBy);
+                CardTier cardTier = CardTier.valueOf(data[0]);
+                int points = Integer.parseInt(data[1]);
+                int emeraldCost = Integer.parseInt(data[2]);
+                int sapphireCost = Integer.parseInt(data[3]);
+                int rubyCost = Integer.parseInt(data[4]);
+                int diamondCost = Integer.parseInt(data[5]);
+                int onyxCost = Integer.parseInt(data[6]);
+                TokenType additionalToken = TokenType.valueOf(data[7]);
+                Card card = new Card(cardTier, points, emeraldCost, sapphireCost, rubyCost, diamondCost, onyxCost);
+                if (additionalToken != null) {
+                    card.setAdditionalToken(additionalToken);
+                }
+                allCards.add(card);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

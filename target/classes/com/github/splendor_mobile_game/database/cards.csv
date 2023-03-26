@@ -1,0 +1,4 @@
+CardTier,Points,EmeraldCost,SapphireCost,RubyCost,DiamondCost,OnyxCost,AdditionalToken
+Bronze,1,0,0,0,0,0,0
+Silver,2,0,0,0,0,0,1
+Gold,3,0,0,0,0,0,2
